@@ -1,0 +1,1 @@
+GLOBAL_QUOTE=1
