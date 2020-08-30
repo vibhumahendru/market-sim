@@ -68,8 +68,8 @@ class ComputationViewset(viewsets.ViewSet):
                 init_dollar += (trade.buy_price*trade.quantity)
                 market_dollar += (current_price*trade.quantity)
 
-        result["portfolio_percent_change"] = get_change(market_total, init_total)
-        result["dollar_change"] = get_change(market_dollar, init_dollar)
-        result["dollar_change_price"] = market_dollar - init_dollar
+        # result["portfolio_percent_change"] = get_change(market_total, init_total)
+        result["portfolio_percent_change"] = round(get_change(market_dollar, init_dollar),2)
+        result["dollar_amount_change"] = round((market_dollar - init_dollar),2)
 
         return Response(result, status=status.HTTP_200_OK)
