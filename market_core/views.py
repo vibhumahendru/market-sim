@@ -2,8 +2,8 @@ import requests
 import json
 from django.shortcuts import render
 from rest_framework import viewsets
-from market_core.serializers import TradeSerializer
-from market_core.models import Trade
+from market_core.serializers import TradeSerializer, PortfolioSerializer
+from market_core.models import Trade, Portfolio
 from market_core.constants.granularities import GLOBAL_QUOTE
 from url_filter.integrations.drf import DjangoFilterBackend
 from rich import print
@@ -32,6 +32,15 @@ class TradeViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Trade.objects.all()
 
+class PortfolioViewSet(viewsets.ModelViewSet):
+    """
+    A viewset for viewing and editing user instances.
+    """
+    serializer_class = PortfolioSerializer
+
+    def get_queryset(self):
+        return Portfolio.objects.all()
+
 class ComputationViewset(viewsets.ViewSet):
     """
     A viewset for viewing and editing user instances.
@@ -45,9 +54,9 @@ class ComputationViewset(viewsets.ViewSet):
                 print(e)
                 print("error fetching result for ", name)
 
-    def portfolio_pnl(self, request):
-        trades = Trade.objects.filter(sell_date__isnull=True)
+    def portfolio_pnl(self, request, *args, **kwargs):
 
+        trades = Trade.objects.filter(sell_date__isnull=True, portfolio__id=kwargs['portfolio'])
         result = {}
 
         init_total = 0

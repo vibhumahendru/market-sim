@@ -1,1 +1,2 @@
 from market_core.serializers.trade import TradeSerializer
+from market_core.serializers.portfolio import PortfolioSerializer
