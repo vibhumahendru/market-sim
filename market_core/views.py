@@ -82,3 +82,57 @@ class ComputationViewset(viewsets.ViewSet):
         result["dollar_amount_change"] = round((market_dollar - init_dollar),2)
 
         return Response(result, status=status.HTTP_200_OK)
+
+    def crypto_pnl(self, request, *args, **kwargs):
+
+
+        open_positions = [
+            {
+            'quantity_btc':0.00349,
+            'inr_invested':9772,
+            'crypto_type': "BTC"
+            },
+            {
+            'quantity_btc':0.00323,
+            'inr_invested':9849,
+            'crypto_type': "BTC"
+            },
+            {
+            'quantity_btc':0.00101,
+            'inr_invested':2925,
+            'crypto_type': "BTC"
+            },
+        ]
+
+        def get_total_and_quantity(positions):
+            total = 0
+            quantity = 0
+
+            for p in positions:
+                total += p['inr_invested']
+                quantity += p['quantity_btc']
+            return total, quantity
+
+        def get_latest_btc_sell_price():
+            response = requests.get('https://api.wazirx.com/api/v2/tickers')
+            data = json.loads(response.content)
+            return float(data['btcinr']['buy'])
+
+        total_inr_invested, total_btc_quantity_held = get_total_and_quantity(open_positions)
+
+        total_btc_value_in_inr = total_btc_quantity_held * get_latest_btc_sell_price()
+
+        percent_change = ((total_btc_value_in_inr - total_inr_invested)/total_inr_invested)*100
+        pnl = total_btc_value_in_inr - total_inr_invested
+
+        result={}
+
+        result['percent_change'] = round(percent_change, 2)
+        result['pnl'] = round(pnl,2)
+        return Response(result, status=status.HTTP_200_OK)
+
+
+        print("_____________________________________________")
+        print("percent_change: ", round(percent_change, 2))
+        print("pnl: ", round(pnl,2))
+        print("_____________________________________________")

@@ -12,9 +12,12 @@ portfolio_router.register(r'', PortfolioViewSet, basename='portfolio')
 
 portfolio_pnl = ComputationViewset.as_view({'get': 'portfolio_pnl'})
 
+crypto_pnl = ComputationViewset.as_view({'get': 'crypto_pnl'})
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^trade/', include(trade_router.urls)),
     url(r'^portfolio/', include(portfolio_router.urls)),
     path('portfolio_pnl/<int:portfolio>/', portfolio_pnl, name='portfolio_pnl' ),
+    path('crypto_pnl', crypto_pnl, name='crypto_pnl' ),
 ]
