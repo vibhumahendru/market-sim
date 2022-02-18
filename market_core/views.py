@@ -9,6 +9,8 @@ from url_filter.integrations.drf import DjangoFilterBackend
 from rich import print
 from rest_framework import status
 from rest_framework.response import Response
+from django.core.mail import send_mail
+
 
 
 
@@ -129,6 +131,17 @@ class ComputationViewset(viewsets.ViewSet):
 
         result['percent_change'] = round(percent_change, 2)
         result['pnl'] = round(pnl,2)
+
+
+
+        send_mail(
+        f"Percent change: {round(percent_change, 2)}",
+        f"Dollar change: {round(pnl,2)}",
+        "Crypto Update <info@wehelpgive.org>",
+        ["vibhumahendru@gmail.com"],
+        fail_silently=False,
+        )
+
         return Response(result, status=status.HTTP_200_OK)
 
 
@@ -136,3 +149,5 @@ class ComputationViewset(viewsets.ViewSet):
         print("percent_change: ", round(percent_change, 2))
         print("pnl: ", round(pnl,2))
         print("_____________________________________________")
+
+        
