@@ -86,6 +86,7 @@ class ComputationViewset(viewsets.ViewSet):
         return Response(result, status=status.HTTP_200_OK)
 
     def crypto_pnl(self, request, *args, **kwargs):
+        storeName = ''
 
         def getIphoneAvailability():
 
@@ -116,9 +117,20 @@ class ComputationViewset(viewsets.ViewSet):
 
             isIphoneAvailable = "Currently unavailable"
 
+
             for store in res["body"]["content"]["pickupMessage"]["stores"]:
-                if store["storeEmail"] == "williamsburg@apple.com":
-                    isIphoneAvailable = store["partsAvailability"]["MQ1D3LL/A"]["pickupSearchQuote"]
+                
+                if store["partsAvailability"]["MQ1D3LL/A"]["pickupSearchQuote"] != "Currently unavailable":
+                    print("Iphone also availalble at !!!!!!!!!!!!!!!!!!!!!!!!!!!!", store["storeName"])
+
+                if isIphoneAvailable == "Currently unavailable":
+                    if store["storeEmail"] == "williamsburg@apple.com":
+                        isIphoneAvailable = store["partsAvailability"]["MQ1D3LL/A"]["pickupSearchQuote"]
+                        storeName = store["storeName"]
+
+                    if store["storeEmail"] == "soho@apple.com":
+                        isIphoneAvailable = store["partsAvailability"]["MQ1D3LL/A"]["pickupSearchQuote"]
+                        storeName = store["storeName"]
 
             if isIphoneAvailable != "Currently unavailable":
                 print("IPHONE AVAILABLE NOW")
@@ -175,9 +187,9 @@ class ComputationViewset(viewsets.ViewSet):
         if getIphoneAvailability():
             send_mail(
             f"VIBHU IPHONE AVAILABLE ",
-            f"Click here - https://www.apple.com/shop/buy-iphone/iphone-14-pro/6.1-inch-display-256gb-deep-purple-unlocked ",
+            f"Store Name = {storeName} -> Click here - https://www.apple.com/shop/buy-iphone/iphone-14-pro/6.1-inch-display-256gb-deep-purple-unlocked ",
             "IPHONE AVAILABLE <info@wehelpgive.org>",
-            ["vibhumahendru@gmail.com"],
+            ["vibhumahendru@gmail.com", "pragyamahendru@gmail.com"],
             fail_silently=False,
             )
 
