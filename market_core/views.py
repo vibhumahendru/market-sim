@@ -114,8 +114,11 @@ class ComputationViewset(viewsets.ViewSet):
 
             res = json.loads(response.text)
 
+            isIphoneAvailable = "Currently unavailable"
 
-            isIphoneAvailable = res["body"]["content"]["pickupMessage"]["stores"][0]["partsAvailability"]["MQ1D3LL/A"]["pickupSearchQuote"]
+            for store in res["body"]["content"]["pickupMessage"]["stores"]:
+                if store["storeEmail"] == "williamsburg@apple.com":
+                    isIphoneAvailable = store["partsAvailability"]["MQ1D3LL/A"]["pickupSearchQuote"]
 
             if isIphoneAvailable == "Currently unavailable":
                 print("IPHONE AVAILABLE NOW")
