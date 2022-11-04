@@ -174,8 +174,8 @@ class ComputationViewset(viewsets.ViewSet):
 
         if getIphoneAvailability():
             send_mail(
-            f"IPHONE AVAILABLE - https://www.apple.com/shop/buy-iphone/iphone-14-pro/6.1-inch-display-256gb-deep-purple-unlocked ",
-            f"Dollar change: {round(pnl,2)}",
+            f"VIBHU IPHONE AVAILABLE ",
+            f"Click here - https://www.apple.com/shop/buy-iphone/iphone-14-pro/6.1-inch-display-256gb-deep-purple-unlocked ",
             "IPHONE AVAILABLE <info@wehelpgive.org>",
             ["vibhumahendru@gmail.com"],
             fail_silently=False,
