@@ -120,7 +120,7 @@ class ComputationViewset(viewsets.ViewSet):
                 if store["storeEmail"] == "williamsburg@apple.com":
                     isIphoneAvailable = store["partsAvailability"]["MQ1D3LL/A"]["pickupSearchQuote"]
 
-            if isIphoneAvailable == "Currently unavailable":
+            if isIphoneAvailable != "Currently unavailable":
                 print("IPHONE AVAILABLE NOW")
                 return True
             else:
