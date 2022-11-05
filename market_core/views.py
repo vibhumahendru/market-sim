@@ -132,6 +132,14 @@ class ComputationViewset(viewsets.ViewSet):
                         isIphoneAvailable = store["partsAvailability"]["MQ1D3LL/A"]["pickupSearchQuote"]
                         storeName = store["storeName"]
 
+                    if store["storeEmail"] == "grandcentral@apple.com":
+                        isIphoneAvailable = store["partsAvailability"]["MQ1D3LL/A"]["pickupSearchQuote"]
+                        storeName = store["storeName"]
+
+                    if store["storeEmail"] == "fifthavenue@apple.com":
+                        isIphoneAvailable = store["partsAvailability"]["MQ1D3LL/A"]["pickupSearchQuote"]
+                        storeName = store["storeName"]
+
             if isIphoneAvailable != "Currently unavailable":
                 print("IPHONE AVAILABLE NOW")
                 return True
