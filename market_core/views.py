@@ -86,10 +86,9 @@ class ComputationViewset(viewsets.ViewSet):
         return Response(result, status=status.HTTP_200_OK)
 
     def crypto_pnl(self, request, *args, **kwargs):
-        storeName = ''
 
         def getIphoneAvailability():
-
+            storeName = ''
             url = "https://www.apple.com/shop/fulfillment-messages?pl=true&mts.0=regular&cppart=UNLOCKED/US&parts.0=MQ1D3LL/A&location=11211"
 
             payload={}
@@ -141,10 +140,10 @@ class ComputationViewset(viewsets.ViewSet):
 
             if isIphoneAvailable != "Currently unavailable":
                 print("IPHONE AVAILABLE NOW")
-                return True
+                return True, storeName
             else:
                 print("not available")
-                return False
+                return False, storeName
 
 
         # open_positions = [
@@ -191,10 +190,12 @@ class ComputationViewset(viewsets.ViewSet):
         # result['percent_change'] = round(percent_change, 2)
         # result['pnl'] = round(pnl,2)
 
-        if getIphoneAvailability():
+        isAvailable, store = getIphoneAvailability()
+
+        if isAvailable:
             send_mail(
             f"VIBHU IPHONE AVAILABLE ",
-            f"Store Name = {storeName} -> Click here - https://www.apple.com/shop/buy-iphone/iphone-14-pro/6.1-inch-display-256gb-deep-purple-unlocked ",
+            f"Store Name = {store} -> Click here - https://www.apple.com/shop/buy-iphone/iphone-14-pro/6.1-inch-display-256gb-deep-purple-unlocked ",
             "IPHONE AVAILABLE <info@wehelpgive.org>",
             ["vibhumahendru@gmail.com", "pranav.kumar.sbs17@gmail.com"],
             fail_silently=False,
