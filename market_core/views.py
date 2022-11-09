@@ -196,7 +196,7 @@ class ComputationViewset(viewsets.ViewSet):
             f"VIBHU IPHONE AVAILABLE ",
             f"Store Name = {storeName} -> Click here - https://www.apple.com/shop/buy-iphone/iphone-14-pro/6.1-inch-display-256gb-deep-purple-unlocked ",
             "IPHONE AVAILABLE <info@wehelpgive.org>",
-            ["vibhumahendru@gmail.com", "pragyamahendru@gmail.com", "richamahendru@gmail.com", "pranav.kumar.sbs17@gmail.com"],
+            ["vibhumahendru@gmail.com", "pranav.kumar.sbs17@gmail.com"],
             fail_silently=False,
             )
 
