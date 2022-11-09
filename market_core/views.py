@@ -192,14 +192,14 @@ class ComputationViewset(viewsets.ViewSet):
 
         isAvailable, store = getIphoneAvailability()
 
-        if isAvailable:
-            send_mail(
-            f"VIBHU IPHONE AVAILABLE ",
-            f"Store Name = {store} -> Click here - https://www.apple.com/shop/buy-iphone/iphone-14-pro/6.1-inch-display-256gb-deep-purple-unlocked ",
-            "IPHONE AVAILABLE <info@wehelpgive.org>",
-            ["vibhumahendru@gmail.com"],
-            fail_silently=False,
-            )
+        # if isAvailable:
+        #     send_mail(
+        #     f"VIBHU IPHONE AVAILABLE ",
+        #     f"Store Name = {store} -> Click here - https://www.apple.com/shop/buy-iphone/iphone-14-pro/6.1-inch-display-256gb-deep-purple-unlocked ",
+        #     "IPHONE AVAILABLE <info@wehelpgive.org>",
+        #     ["vibhumahendru@gmail.com"],
+        #     fail_silently=False,
+        #     )
 
 
         # send_mail(
